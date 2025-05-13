@@ -1,7 +1,8 @@
+import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 function App() {
-  const title = 'Welcom to Reactivities'
+  const title = 'Welcome to Reactivities'
   // use react hooks to remember state
   const [activities, setActivities] = useState<Activity[]>([]);
 
@@ -21,17 +22,19 @@ function App() {
 
 
   return (
-    <div >
-      <h3 className="app" style={{ color: 'red' }}>{title}</h3>
-      <h2>Activities</h2>
-      <ul>
+    < >
+      <Typography variant='h1' className="app" style={{ color: 'blue' }}>{title}</Typography>
+      <Typography variant='h3'>Activities</Typography>
+      <List>
         {activities.map(activity => (
-          <li key={activity.id}>{activity.title}</li>
+          <ListItem key={activity.id}>
+            <ListItemText>{activity.title}</ListItemText>
+          </ListItem>
         ))}
-      </ul>
+      </List>
 
       <ul></ul>
-    </div>
+    </>
   )
 }
 
