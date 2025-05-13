@@ -400,3 +400,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /API/reactivities.db
+/API/reactivities.db-shm
+/API/reactivities.db-wal
