@@ -14,9 +14,15 @@ internal class Program
         {
             opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
+        builder.Services.AddCors();
         ///////////////////////////////////////////////
         // Configure the HTTP request pipeline.
         var app = builder.Build();
+        app.UseCors(x =>
+            x.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:3000","https://localhost:3000")
+            );
 
         app.MapControllers();
 
