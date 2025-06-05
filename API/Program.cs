@@ -1,3 +1,4 @@
+using Application.Activities.Queries;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -15,13 +16,16 @@ internal class Program
             opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
         builder.Services.AddCors();
+        builder.Services.AddMediatR(x =>
+            x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
+
         ///////////////////////////////////////////////
         // Configure the HTTP request pipeline.
         var app = builder.Build();
         app.UseCors(x =>
             x.AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("http://localhost:3000","https://localhost:3000")
+            .WithOrigins("http://localhost:3000", "https://localhost:3000")
             );
 
         app.MapControllers();
