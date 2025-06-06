@@ -5,6 +5,7 @@ using Persistence;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Application.Activities.Commands;
 
@@ -15,7 +16,7 @@ public class EditActivity
         public required Activity Activity { get; set; }  // Activity to be edited
     }
 
-    public class Handler(AppDbContext context) : IRequestHandler<Command>
+    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command>
     {
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
@@ -24,12 +25,7 @@ public class EditActivity
                 ?? throw new Exception($"Activity with ID {request.Activity.Id} not found.");
 
             // Update properties
-            activity.Title = request.Activity.Title;
-            activity.Description = request.Activity.Description;
-            activity.Date = request.Activity.Date;
-            activity.Category = request.Activity.Category;
-            activity.City = request.Activity.City;
-            activity.Venue = request.Activity.Venue;
+            mapper.Map(request.Activity, activity);
 
             await context.SaveChangesAsync(cancellationToken);
         }

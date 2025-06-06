@@ -1,6 +1,7 @@
 using Application.Activities.Queries;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Application.Core;
 
 internal class Program
 {
@@ -18,6 +19,7 @@ internal class Program
         builder.Services.AddCors();
         builder.Services.AddMediatR(x =>
             x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
+        builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
         ///////////////////////////////////////////////
         // Configure the HTTP request pipeline.
